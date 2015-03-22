@@ -26,15 +26,15 @@ public class Input implements KeyListener {
 	}
 	
 	public void tick() {
-		joystick1.tick();
-		xa1=joystick1.getXdir();
-		joystick2.tick();
-		xa2=joystick2.getXdir();
-		if (!joystick1.getButton(START_POS,START_VAL)) startReleased = true;
-		else if (startReleased) {
-			start = true;
-			startReleased = false;
+		if (joystick1.tick()) {
+			xa1=joystick1.getXdir();
+			if (!joystick1.getButton(START_POS,START_VAL)) startReleased = true;
+			else if (startReleased) {
+				start = true;
+				startReleased = false;
+			}
 		}
+		if (joystick2.tick()) xa2=joystick2.getXdir();
 	}
 
 	public void keyPressed(KeyEvent e) {

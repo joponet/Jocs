@@ -38,7 +38,7 @@ public class Game extends Canvas {
 		frame.add(this);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);		
-		
+
 		// game classes
 		input = new Input();
 		sound = new Sound();
@@ -48,7 +48,7 @@ public class Game extends Canvas {
 		pilota = new Pilota(ground, player1, player2, sound);
 		status = new Status(player1,player2);
 		menu = new Menu();
-		
+
 		// this.canvas
 		this.setBackground(Color.GRAY);
 		this.addKeyListener(input);
@@ -73,7 +73,7 @@ public class Game extends Canvas {
 		BufferStrategy buffer;
 		this.createBufferStrategy(2);
 		buffer = this.getBufferStrategy();
-		
+
 		// running
 		espera(1);
 		long lasttime = System.nanoTime();
@@ -127,6 +127,7 @@ public class Game extends Canvas {
 	public void draw(Graphics g) {
 		if (!init) return;
 		input.tick();
+
 		// clear
 		pilota.clear(g);
 		player1.clear(g);

@@ -60,7 +60,7 @@ public class Joystick {
 	
 	private HIDManager manager;
 	private HIDDeviceInfo deviceInfo[] = null;
-	private HIDDevice device;
+	private HIDDevice device = null;
 	
 	private float posX=0;
 	private float posY=0;
@@ -71,7 +71,7 @@ public class Joystick {
 		try {
 			manager = HIDManager.getInstance();
 			deviceInfo = manager.listDevices();
-			device = manager.openByPath(deviceInfo[i].getPath());
+			if (deviceInfo[i].getUsage() == 4) device = manager.openByPath(deviceInfo[i].getPath());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -128,12 +128,21 @@ public class Joystick {
 		return inc;
 	}
 	
-	void tick() {
+	boolean tick() {
+		if (device==null) return false;
 		try {
 			device.read(buf);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return true;
+	}
+	
+	boolean isDefined() {
+//		boolean defined;
+//		if (device==null) defined = false; else defined=true;
+//		return defined;
+		return (device!=null);
 	}
 }
